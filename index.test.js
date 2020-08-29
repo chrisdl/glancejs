@@ -182,3 +182,12 @@ test('Returns non array/object values if they are passed', () => {
   expect(glance({ obj: true })).toBe(true)
   expect(glance({ obj: null })).toBe(null)
 })
+
+test('Can cut off arrays', () => {
+  const obj = {
+    arr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  }
+  expect(glance({ obj, arrayMax: 2 })).toEqual({
+    arr: [0, 1, '8 more...']
+  })
+})

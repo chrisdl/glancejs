@@ -1,18 +1,21 @@
 const { isObject } = require('./utils')
 
-function digIntoArray ({ arr, depth, currentDepth }) {
-  // console.log({
-  //   arrAsString: JSON.stringify(arr),
-  //   depth,
-  //   currentDepth
-  // })
+function digIntoArray ({ arr, depth, currentDepth, arrayMax, ...rest }) {
+  if (Number.isInteger(arrayMax) && arrayMax >= 0) {
+    const len = arr.length
+    arr = arr.slice(0, arrayMax)
+    arr.push(`${len - arrayMax} more...`)
+  }
+
   const output = arr.map((each) => {
     if (isObject(each)) {
       if (depth > currentDepth) {
         return digIntoObject({
           obj: each,
           depth,
-          currentDepth: currentDepth + 1
+          currentDepth: currentDepth + 1,
+          arrayMax,
+          ...rest
         })
       }
     } else if (Array.isArray(each)) {
@@ -20,7 +23,9 @@ function digIntoArray ({ arr, depth, currentDepth }) {
         return digIntoArray({
           arr: each,
           depth,
-          currentDepth: currentDepth + 1
+          currentDepth: currentDepth + 1,
+          arrayMax,
+          ...rest
         })
       } else {
         return '[...]'
@@ -31,9 +36,7 @@ function digIntoArray ({ arr, depth, currentDepth }) {
   return output
 }
 
-function digIntoObject ({ obj, depth, currentDepth }) {
-  // console.log({ objAsString: JSON.stringify(obj), depth, currentDepth })
-
+function digIntoObject ({ obj, depth, currentDepth, ...rest }) {
   const output = Object.keys(obj).reduce((acc, key) => {
     const value = obj[key]
 
@@ -42,7 +45,8 @@ function digIntoObject ({ obj, depth, currentDepth }) {
         acc[key] = digIntoObject({
           obj: value,
           depth,
-          currentDepth: currentDepth + 1
+          currentDepth: currentDepth + 1,
+          ...rest
         })
       } else {
         acc[key] = '{...}'
@@ -60,13 +64,15 @@ function digIntoObject ({ obj, depth, currentDepth }) {
 
     return acc
   }, {})
-  // console.log({ depth, output })
   return output
 }
 
-module.exports = function ({ obj, depth = 1 }) {
+module.exports = function ({ obj, arrayMax, depth = 1 }) {
   if (Array.isArray(obj)) {
-    return digIntoArray({ arr: obj, depth, currentDepth: 0 })
+    return digIntoArray({ arr: obj, depth, arrayMax, currentDepth: 0 })
   }
-  return digIntoObject({ obj, depth, currentDepth: 0 })
+  if (isObject(obj)) {
+    return digIntoObject({ obj, depth, arrayMax, currentDepth: 0 })
+  }
+  return obj
 }
