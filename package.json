@@ -1,0 +1,22 @@
+{
+  "name": "glance",
+  "version": "1.0.0",
+  "description": "A module for inspecting tricky objects.",
+  "main": "index.js",
+  "watch": {
+    "test": "*.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "watch": "npm-watch"
+  },
+  "author": "Chris DiLorenzo",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.4.2",
+    "standard": "^14.3.4"
+  },
+  "dependencies": {
+    "npm-watch": "^0.7.0"
+  }
+}
