@@ -51,6 +51,29 @@ test('cuts off depth 1 object', () => {
   expect(glance({ obj, depth: 1 })).toEqual(expected)
 })
 
+test('doesnt mess up a deepish object', () => {
+  const obj = {
+    a: {
+      b: {
+        c: [
+          {
+            d: [1]
+          },
+          {
+            e: [
+              {
+                f: 'f'
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+  const expected = JSON.parse(JSON.stringify(obj))
+  expect(glance({ obj, depth: 10 })).toEqual(expected)
+})
+
 test('keeps entire 2 depth obj', () => {
   const obj = {
     a: {
@@ -98,7 +121,7 @@ test('works for 1-dim array', () => {
 })
 
 test('works for 2-dim array', () => {
-  const arr = [ ['x'], ['y'] ]
+  const arr = [['x'], ['y']]
   const arrCopy = JSON.parse(JSON.stringify(arr))
   expect(glance({ obj: arr })).toEqual(arrCopy)
 })
@@ -141,4 +164,21 @@ test('works for 3 and 4-dim array (cutoff the 4)', () => {
       [3]
     ]
   ])
+})
+
+test('Will not inspect a date object', () => {
+  const date = new Date()
+
+  // Simply returns the date object in this case
+  expect(glance({ obj: date })).toEqual(date)
+})
+
+// This is a bit of a judgement call, should it return
+// or should it complain? or both?
+test('Returns non array/object values if they are passed', () => {
+  expect(glance({ obj: 1 })).toBe(1)
+  expect(glance({ obj: 'hello' })).toBe('hello')
+  expect(glance({ obj: undefined })).toBe(undefined)
+  expect(glance({ obj: true })).toBe(true)
+  expect(glance({ obj: null })).toBe(null)
 })

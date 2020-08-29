@@ -47,6 +47,13 @@ function digIntoObject ({ obj, depth, currentDepth }) {
       } else {
         acc[key] = '{...}'
       }
+    } else if (Array.isArray(value)) {
+      acc[key] = digIntoArray({
+        arr: value,
+        depth,
+        currentDepth: currentDepth + 1,
+        ...rest
+      })
     } else {
       acc[key] = value
     }
