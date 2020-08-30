@@ -1,8 +1,7 @@
 (function (factory) {
-  typeof define === 'function' && define.amd ? define(factory)
-    : factory()
-}(function () {
-  'use strict'
+  typeof define === 'function' && define.amd ? define(factory) :
+  factory();
+}((function () { 'use strict';
 
   function isObject (x) {
     return typeof x === 'object' &&
@@ -13,9 +12,9 @@
 
   function digIntoArray ({ arr, depth, currentDepth, arrayMax, ...rest }) {
     if (Number.isInteger(arrayMax) && arrayMax >= 0) {
-      const len = arr.length
-      arr = arr.slice(0, arrayMax)
-      arr.push(`${len - arrayMax} more...`)
+      const len = arr.length;
+      arr = arr.slice(0, arrayMax);
+      arr.push(`${len - arrayMax} more...`);
     }
 
     const output = arr.map((each) => {
@@ -43,13 +42,13 @@
         }
       }
       return each
-    })
+    });
     return output
   }
 
   function digIntoObject ({ obj, depth, currentDepth, ...rest }) {
     const output = Object.keys(obj).reduce((acc, key) => {
-      const value = obj[key]
+      const value = obj[key];
 
       if (isObject(value)) {
         if (depth > currentDepth) {
@@ -58,9 +57,9 @@
             depth,
             currentDepth: currentDepth + 1,
             ...rest
-          })
+          });
         } else {
-          acc[key] = '{...}'
+          acc[key] = '{...}';
         }
       } else if (Array.isArray(value)) {
         acc[key] = digIntoArray({
@@ -68,13 +67,13 @@
           depth,
           currentDepth: currentDepth + 1,
           ...rest
-        })
+        });
       } else {
-        acc[key] = value
+        acc[key] = value;
       }
 
       return acc
-    }, {})
+    }, {});
     return output
   }
 
@@ -86,5 +85,6 @@
       return digIntoObject({ obj, depth, arrayMax, currentDepth: 0 })
     }
     return obj
-  }
-}))
+  };
+
+})));

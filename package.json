@@ -2,27 +2,34 @@
   "name": "glance",
   "version": "1.0.0",
   "description": "A module for inspecting tricky objects.",
-  "main": "index.js",
+  "license": "ISC",
+  "author": {
+    "name": "Chris DiLorenzo",
+    "url": "https://dilorenzo.se"
+  },
+  "main": "bundle.js",
   "watch": {
     "test": "*.js"
   },
   "scripts": {
     "test": "jest --verbose",
     "watch": "npm-watch",
-    "build": "rollup ./src/index.js --file index.js --format umd --name 'glance'"
+    "standard": "standard --fix",
+    "build": "rollup ./src/index.js --file bundle.js --format umd --name 'glance'"
   },
   "keywords": [
     "glance",
     "glancejs",
     "debugging",
     "debug",
-    "simplify objects"
+    "simplify objects",
+    "debug big objects"
   ],
   "standard": {
-    "ignore": [ "index.js" ]
+    "ignore": [
+      "bundle.js"
+    ]
   },
-  "author": "Chris DiLorenzo",
-  "license": "ISC",
   "devDependencies": {
     "@babel/preset-env": "^7.11.0",
     "jest": "^26.4.2",
