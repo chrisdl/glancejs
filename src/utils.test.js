@@ -1,7 +1,5 @@
 /* global test, expect */
 
-// const utils = require('./utils')
-
 import { isObject } from './utils.js'
 
 test('isObject', () => {
