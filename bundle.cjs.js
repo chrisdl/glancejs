@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', { value: true })
 
 function isObject (x) {
   return typeof x === 'object' &&
@@ -9,18 +9,17 @@ function isObject (x) {
     !(x instanceof Date)
 }
 
-function digIntoArray ({ arr, depth, currentDepth, arrayMax, ...rest }) {
+function digIntoArray (arr, { depth, currentDepth, arrayMax, ...rest }) {
   if (Number.isInteger(arrayMax) && arrayMax >= 0) {
-    const len = arr.length;
-    arr = arr.slice(0, arrayMax);
-    arr.push(`${len - arrayMax} more...`);
+    const len = arr.length
+    arr = arr.slice(0, arrayMax)
+    arr.push(`${len - arrayMax} more...`)
   }
 
   const output = arr.map((each) => {
     if (isObject(each)) {
       if (depth > currentDepth) {
-        return digIntoObject({
-          obj: each,
+        return digIntoObject(each, {
           depth,
           currentDepth: currentDepth + 1,
           arrayMax,
@@ -29,8 +28,7 @@ function digIntoArray ({ arr, depth, currentDepth, arrayMax, ...rest }) {
       }
     } else if (Array.isArray(each)) {
       if (depth > currentDepth) {
-        return digIntoArray({
-          arr: each,
+        return digIntoArray(each, {
           depth,
           currentDepth: currentDepth + 1,
           arrayMax,
@@ -41,49 +39,47 @@ function digIntoArray ({ arr, depth, currentDepth, arrayMax, ...rest }) {
       }
     }
     return each
-  });
+  })
   return output
 }
 
-function digIntoObject ({ obj, depth, currentDepth, ...rest }) {
+function digIntoObject (obj, { depth, currentDepth, ...rest }) {
   const output = Object.keys(obj).reduce((acc, key) => {
-    const value = obj[key];
+    const value = obj[key]
 
     if (isObject(value)) {
       if (depth > currentDepth) {
-        acc[key] = digIntoObject({
-          obj: value,
+        acc[key] = digIntoObject(value, {
           depth,
           currentDepth: currentDepth + 1,
           ...rest
-        });
+        })
       } else {
-        acc[key] = '{...}';
+        acc[key] = '{...}'
       }
     } else if (Array.isArray(value)) {
-      acc[key] = digIntoArray({
-        arr: value,
+      acc[key] = digIntoArray(value, {
         depth,
         currentDepth: currentDepth + 1,
         ...rest
-      });
+      })
     } else {
-      acc[key] = value;
+      acc[key] = value
     }
 
     return acc
-  }, {});
+  }, {})
   return output
 }
 
-function glance ({ obj, arrayMax, depth = 1 }) {
+function glance (obj, { arrayMax, depth = 1 } = {}) {
   if (Array.isArray(obj)) {
-    return digIntoArray({ arr: obj, depth, arrayMax, currentDepth: 0 })
+    return digIntoArray(obj, { depth, arrayMax, currentDepth: 0 })
   }
   if (isObject(obj)) {
-    return digIntoObject({ obj, depth, arrayMax, currentDepth: 0 })
+    return digIntoObject(obj, { depth, arrayMax, currentDepth: 0 })
   }
   return obj
 }
 
-exports.glance = glance;
+exports.glance = glance
