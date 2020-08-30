@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+</head>
+<body>
+<script src="bundle.browser.min.js"></script>
+<script type="text/javascript">
+  const obj = {
+    a: {
+      c1: "Hello World",
+      b: {
+        c: { d: "Can't see me! I'm too deep!"}
+      }
+    }
+  };
+  console.log(GlanceJS.glance(obj));
+</script>
+</body>
+</html>

@@ -30,7 +30,7 @@ I use it for debugging big JSON responses mainly, but it's pretty general so the
 }
 ```
 
-You control the depth and how much it cuts off from arrays.
+You control the depth and how much glance removes from arrays.
 
 ## Installation
 
@@ -48,8 +48,19 @@ Node
 
 Browser
 
+Take a look at [browser.example.html](https://github.com/chrisdl/glancejs/blob/master/browser.example.html)
+
+## Reference
+
+The glance function takes an `object` or `array` as it‘s first parameter and then an optional options object as it‘s second parameter.
+
 ```javascript
-// TODO
+glance(obj, {
+  depth: 1                // Defaults to 1. How deep do you want to dig?
+  arrayMax: undefined     // Not required. Max nr of items in arrays. Rest
+                          // are sliced off. Adds a string to end of array
+                          // telling you how many items were sliced off.
+})
 ```
 
 ## Contributing
