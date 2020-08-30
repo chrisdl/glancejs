@@ -1,7 +1,6 @@
 /* global test, expect */
 
-// const glance = require('./index')
-import glance from './index'
+import { glance } from './index'
 
 test('exists', () => {
   expect(glance).toBeDefined()

@@ -1,6 +1,6 @@
 {
   "name": "glance",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "A module for inspecting tricky objects.",
   "license": "ISC",
   "author": {
@@ -15,7 +15,7 @@
     "test": "jest --verbose",
     "watch": "npm-watch",
     "standard": "standard --fix",
-    "build": "rollup ./src/index.js --file bundle.js --format umd --name 'glance'"
+    "build": "rollup --config"
   },
   "keywords": [
     "glance",
@@ -35,6 +35,7 @@
     "jest": "^26.4.2",
     "npm-watch": "^0.7.0",
     "rollup": "^2.26.8",
+    "rollup-plugin-terser": "^7.0.1",
     "standard": "^14.3.4"
   },
   "dependencies": {}

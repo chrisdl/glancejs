@@ -2,10 +2,12 @@
 
 Glance is a NodeJS library for simplifying objects. It allows you to cut off arrays after a certain number and to cap objects after a certain depth is reached.
 
+It has no dependencies and is only about 100 loc.
+
 I use it for debugging big JSON responses mainly, but it's pretty general so there are definitely other usecases.
 
 ```javascript
-// It can make this:
+// It can make this
 {
   a: [ 1, 2, 3, 4, 5, ..., 500 ],
   b: {
