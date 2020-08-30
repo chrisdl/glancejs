@@ -2,6 +2,7 @@
   "name": "glance",
   "version": "0.9.0",
   "description": "A module for inspecting tricky objects.",
+  "type": "module",
   "license": "ISC",
   "author": {
     "name": "Chris DiLorenzo",
