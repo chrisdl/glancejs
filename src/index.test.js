@@ -8,7 +8,7 @@ test('exists', () => {
 
 test('accepts an object', () => {
   const obj = { hello: 'world' }
-  expect(glance({ obj })).toEqual(obj)
+  expect(glance(obj)).toEqual(obj)
 })
 
 test('cuts off depth 0 object', () => {
@@ -18,7 +18,7 @@ test('cuts off depth 0 object', () => {
     }
   }
   const expected = { a: '{...}' }
-  expect(glance({ obj, depth: 0 })).toEqual(expected)
+  expect(glance(obj, { depth: 0 })).toEqual(expected)
 })
 
 test('Keep entire 1 depth obj.', () => {
@@ -32,7 +32,7 @@ test('Keep entire 1 depth obj.', () => {
       b: 'hello'
     }
   }
-  expect(glance({ obj, depth: 1 })).toEqual(expected)
+  expect(glance(obj)).toEqual(expected)
 })
 
 test('cuts off depth 1 object', () => {
@@ -48,7 +48,7 @@ test('cuts off depth 1 object', () => {
       b: '{...}'
     }
   }
-  expect(glance({ obj, depth: 1 })).toEqual(expected)
+  expect(glance(obj)).toEqual(expected)
 })
 
 test('doesnt mess up a deepish object', () => {
@@ -71,7 +71,7 @@ test('doesnt mess up a deepish object', () => {
     }
   }
   const expected = JSON.parse(JSON.stringify(obj))
-  expect(glance({ obj, depth: 10 })).toEqual(expected)
+  expect(glance(obj, { depth: 10 })).toEqual(expected)
 })
 
 test('keeps entire 2 depth obj', () => {
@@ -91,7 +91,7 @@ test('keeps entire 2 depth obj', () => {
       }
     }
   }
-  expect(glance({ obj, depth: 2 })).toEqual(expected)
+  expect(glance(obj, { depth: 2 })).toEqual(expected)
 })
 
 test('works for array of objects', () => {
@@ -111,19 +111,19 @@ test('works for array of objects', () => {
       c: '{...}'
     }
   }]
-  expect(glance({ obj, depth: 2 })).toEqual(expected)
+  expect(glance(obj, { depth: 2 })).toEqual(expected)
 })
 
 test('works for 1-dim array', () => {
   const arr = [1, 2, 3]
   const arrCopy = JSON.parse(JSON.stringify(arr))
-  expect(glance({ obj: arr })).toEqual(arrCopy)
+  expect(glance(arr)).toEqual(arrCopy)
 })
 
 test('works for 2-dim array', () => {
   const arr = [['x'], ['y']]
   const arrCopy = JSON.parse(JSON.stringify(arr))
-  expect(glance({ obj: arr })).toEqual(arrCopy)
+  expect(glance(arr)).toEqual(arrCopy)
 })
 
 test('works for 3 and 4-dim array', () => {
@@ -138,7 +138,7 @@ test('works for 3 and 4-dim array', () => {
     ]
   ]
   const arrCopy = JSON.parse(JSON.stringify(arr))
-  const output = glance({ obj: arr, depth: 3 })
+  const output = glance(arr, { depth: 3 })
   expect(output).toEqual(arrCopy)
 })
 
@@ -153,7 +153,7 @@ test('works for 3 and 4-dim array (cutoff the 4)', () => {
       [3]
     ]
   ]
-  const output = glance({ obj: arr, depth: 2 })
+  const output = glance(arr, { depth: 2 })
   expect(output).toEqual([
     [
       [
@@ -170,22 +170,22 @@ test('Will not inspect a date object', () => {
   const date = new Date()
 
   // Simply returns the date object in this case
-  expect(glance({ obj: date })).toEqual(date)
+  expect(glance(date)).toEqual(date)
 })
 
 // This is a bit of a judgement call, should it return
 // or should it complain? or both?
 test('Returns non array/object values if they are passed', () => {
-  expect(glance({ obj: 1 })).toBe(1)
-  expect(glance({ obj: 'hello' })).toBe('hello')
-  expect(glance({ obj: undefined })).toBe(undefined)
-  expect(glance({ obj: true })).toBe(true)
-  expect(glance({ obj: null })).toBe(null)
+  expect(glance(1)).toBe(1)
+  expect(glance('hello')).toBe('hello')
+  expect(glance(undefined)).toBe(undefined)
+  expect(glance(true)).toBe(true)
+  expect(glance(null)).toBe(null)
 })
 
 test('Can cut off array', () => {
   const obj = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  expect(glance({ obj, arrayMax: 2 }))
+  expect(glance(obj, { arrayMax: 2 }))
     .toEqual([0, 1, '8 more...'])
 })
 
@@ -193,7 +193,7 @@ test('Can cut off array in object', () => {
   const obj = {
     arr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   }
-  expect(glance({ obj, arrayMax: 2 }))
+  expect(glance(obj, { arrayMax: 2 }))
     .toEqual({
       arr: [0, 1, '8 more...']
     })
@@ -206,7 +206,7 @@ test('Can cut off 2 arrays at different depths', () => {
       arr2: [0, 1, 2, 3, 4]
     }
   }
-  expect(glance({ obj, arrayMax: 2 }))
+  expect(glance(obj, { arrayMax: 2 }))
     .toEqual({
       arr1: [0, 1, '8 more...'],
       a: {
