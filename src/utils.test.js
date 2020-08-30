@@ -1,8 +1,8 @@
 /* global test, expect */
 
-const utils = require('./utils')
+// const utils = require('./utils')
 
-const { isObject } = utils
+import { isObject } from './utils.js'
 
 test('isObject', () => {
   expect(isObject({})).toBe(true)

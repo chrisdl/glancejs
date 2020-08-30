@@ -1,6 +1,7 @@
 /* global test, expect */
 
-const glance = require('./index')
+// const glance = require('./index')
+import glance from './index'
 
 test('exists', () => {
   expect(glance).toBeDefined()
@@ -183,11 +184,34 @@ test('Returns non array/object values if they are passed', () => {
   expect(glance({ obj: null })).toBe(null)
 })
 
-test('Can cut off arrays', () => {
+test('Can cut off array', () => {
+  const obj = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  expect(glance({ obj, arrayMax: 2 }))
+    .toEqual([0, 1, '8 more...'])
+})
+
+test('Can cut off array in object', () => {
   const obj = {
     arr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   }
-  expect(glance({ obj, arrayMax: 2 })).toEqual({
-    arr: [0, 1, '8 more...']
-  })
+  expect(glance({ obj, arrayMax: 2 }))
+    .toEqual({
+      arr: [0, 1, '8 more...']
+    })
+})
+
+test('Can cut off 2 arrays at different depths', () => {
+  const obj = {
+    arr1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    a: {
+      arr2: [0, 1, 2, 3, 4]
+    }
+  }
+  expect(glance({ obj, arrayMax: 2 }))
+    .toEqual({
+      arr1: [0, 1, '8 more...'],
+      a: {
+        arr2: [0, 1, '3 more...']
+      }
+    })
 })

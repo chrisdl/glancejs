@@ -5,6 +5,4 @@ function isObject (x) {
     !(x instanceof Date)
 }
 
-module.exports = {
-  isObject
-}
+export { isObject }

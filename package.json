@@ -7,16 +7,29 @@
     "test": "*.js"
   },
   "scripts": {
-    "test": "jest",
-    "watch": "npm-watch"
+    "test": "jest --verbose",
+    "watch": "npm-watch",
+    "build": "rollup ./src/index.js --file index.js --format umd --name 'glance'"
+  },
+  "keywords": [
+    "glance",
+    "glancejs",
+    "debugging",
+    "debug",
+    "simplify objects"
+  ],
+  "standard": {
+    "ignore": [ "index.js" ]
   },
   "author": "Chris DiLorenzo",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-env": "^7.11.0",
+    "babel-jest": "^26.3.0",
     "jest": "^26.4.2",
+    "npm-watch": "^0.7.0",
+    "rollup": "^2.26.8",
     "standard": "^14.3.4"
   },
-  "dependencies": {
-    "npm-watch": "^0.7.0"
-  }
+  "dependencies": {}
 }
