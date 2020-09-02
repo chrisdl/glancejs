@@ -80,6 +80,18 @@ glance(obj, {
 })
 ```
 
+## Examples
+
+All of the following are perfectly valid ways to call glance.
+
+```javascript
+glance({ a: 'a' })
+glance([1, 2, 3])
+glance([1, 2, 3], { arrayMax: 1 })
+glance({ a: { b: { c: 'c' }}}, { depth: 0 })
+glance({ a: [1, 2, 3] }, { depth: 4, arrayMax: 2 })
+```
+
 ## Contributing
 
 Anyone is welcome to contribute. Please open a github issue for bugs, improvements and new features.
