@@ -35,7 +35,7 @@ You control the depth and how much glance removes from arrays.
 ## Installation
 
 ```bash
-npm install glance --save-dev
+npm install glancejs --save-dev
 ```
 
 ## Usage

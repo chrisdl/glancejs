@@ -1,5 +1,5 @@
 {
-  "name": "glance",
+  "name": "glancejs",
   "version": "1.0.0",
   "description": "A module for inspecting tricky objects.",
   "type": "module",
