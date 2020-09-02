@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/chrisdl/glancejs.svg?branch=master)](https://travis-ci.com/chrisdl/glancejs) [tested on Node 10, 12, 14, LTS and Latest Stable]
+
 # Glance
 
 Glance is a NodeJS library for simplifying objects. It allows you to cut off arrays after a certain number and to cap objects after a certain depth is reached.
