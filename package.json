@@ -1,6 +1,6 @@
 {
   "name": "glance",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "A module for inspecting tricky objects.",
   "type": "module",
   "license": "ISC",
@@ -8,15 +8,13 @@
     "name": "Chris DiLorenzo",
     "url": "https://dilorenzo.se"
   },
-  "main": "bundle.js",
-  "watch": {
-    "test": "*.js"
-  },
-  "scripts": {
-    "test": "jest --verbose",
-    "watch": "npm-watch",
-    "standard": "standard --fix",
-    "build": "rollup --config"
+  "repository": "https://github.com/chrisdl/glancejs",
+  "type": "module",
+  "module": "./esm/index.js",
+  "main": "./cjs/index.js",
+  "exports": {
+    "import": "./esm/index.js",
+    "default": "./cjs/index.js"
   },
   "keywords": [
     "glance",
@@ -28,8 +26,19 @@
   ],
   "standard": {
     "ignore": [
-      "bundle.js"
+      "cjs/index.js",
+      "esm/index.js",
+      "bundle.browser.min.js"
     ]
+  },
+  "watch": {
+    "test": "*.js"
+  },
+  "scripts": {
+    "test": "jest --verbose",
+    "watch": "npm-watch",
+    "standard": "standard --fix",
+    "build": "rollup --config"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.11.0",

@@ -9,7 +9,7 @@ export default {
       name: 'GlanceJS',
       plugins: [terser()]
     },
-    { file: 'bundle.cjs.js', format: 'cjs' },
-    { file: 'bundle.js', format: 'es' }
+    { file: 'cjs/index.js', format: 'cjs' },
+    { file: 'esm/index.js', format: 'es' }
   ]
 }
