@@ -40,13 +40,30 @@ npm install glance --save-dev
 
 ## Usage
 
-Node
+### Node
 
 ```javascript
-// TODO
+
+// Node 13+. I for one welcome our ESM overlords.
+import { glance } from 'glance'
+
+// Alt. if using CommonJS (CJS) modules
+// const { glance } = require('glance')
+
+const obj = {
+  a: {
+    b: {
+      c: 'c'
+    }
+  }
+};
+console.log(glance(obj))
+
+// You can also pass in an optional options object as a second parameter.
+glance(obj, { depth: 2, arrayMax: 3 })
 ```
 
-Browser
+### Browser
 
 Take a look at [browser.example.html](https://github.com/chrisdl/glancejs/blob/master/browser.example.html)
 
