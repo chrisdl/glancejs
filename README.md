@@ -34,6 +34,10 @@ I use it for debugging big JSON responses mainly, but it‘s very general so the
 
 You control the depth and how much glance removes from arrays.
 
+## You might not need Glance!
+
+If you log objects using [console.dir()](https://nodejs.org/api/console.html#console_console_dir_obj_options) which uses `utils.inspect` you can provide depth and array max lengths. In fact I should probably edit glance to simply use `utils.inspect` for a lot of it's functionality.
+
 ## Installation
 
 ```bash
